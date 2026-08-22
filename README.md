@@ -13,11 +13,12 @@ Hard rules:
 ## Quick start
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
 ```bash
+npm ci
 npm run build
 npm run preview
 ```
@@ -50,25 +51,46 @@ Shared frontmatter: `title`, `status` (`card`|`stub`), `family` (`spine`|`fapi`|
 
 Nav: Home, Spine, FAPI, OBL, HMT, Lab, Diffs.
 
-## Cloudflare Pages
+## Cloudflare Pages / Workers
 
-Wrangler/Pages config is in `wrangler.jsonc` (project name `implementors`). Adapter: `@astrojs/cloudflare`.
+Wrangler config: `wrangler.jsonc` (project name `implementors`). Adapter: `@astrojs/cloudflare`. Assets come from `./dist` **after** `astro build`.
 
 **Do not** attach custom domain `implementors.attainai.ai` for this milestone. Use `*.pages.dev` when connected.
 
-### Deploy options
+### Never deploy an empty tree
 
-1. **Dashboard (recommended first connect)**  
-   Cloudflare Dashboard → Workers & Pages → Create → Pages → Connect to Git → select `comet528/implementors` → framework preset Astro → build command `npm run build` → output directory `dist`.  
-   After the first successful deploy you get `https://implementors.pages.dev` (or the project’s `*.pages.dev` URL).
+`wrangler.jsonc` points `assets.directory` at `./dist`. A bare `npx wrangler deploy` **without** a prior build fails or ships nothing useful.
 
-2. **CLI (after the Pages project exists and you are logged in)**  
-   ```bash
-   npx wrangler login
-   npm run pages:deploy
-   ```
+**Always** use a script that builds first:
 
-This environment cannot invent a live Pages URL. If Pages is not yet connected, the remaining click is: **Cloudflare Dashboard → Create Pages project → Connect GitHub repo `comet528/implementors`**.
+```bash
+npm ci
+npm run deploy
+# → npm run build && wrangler deploy
+```
+
+Pages CLI equivalent (also builds first):
+
+```bash
+npm ci
+npm run pages:deploy
+# → npm run build && wrangler pages deploy dist --project-name=implementors
+```
+
+Do **not** run `npx wrangler deploy` alone.
+
+### Pages (Git / dashboard)
+
+Cloudflare Dashboard → Workers & Pages → Create → Pages → Connect to Git → `comet528/implementors`:
+
+| Setting | Value |
+| --- | --- |
+| Build command | `npm ci && npm run build` |
+| Output directory | `dist` |
+
+After the first successful deploy you get the project’s `*.pages.dev` URL (often `https://implementors.pages.dev`).
+
+If Pages is not yet connected, the remaining click is: **Cloudflare Dashboard → Create Pages project → Connect GitHub repo `comet528/implementors`**.
 
 ## Leak guard check
 
