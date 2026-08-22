@@ -1,0 +1,25 @@
+{
+  "name": "implementors",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Public open-finance implementor directory (spine, cards, diffs, lab).",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "leak-guard": "node scripts/leak-guard.mjs",
+    "dev": "npm run leak-guard && astro dev",
+    "prebuild": "node scripts/leak-guard.mjs",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "generate-types": "wrangler types",
+    "pages:deploy": "npm run build && wrangler pages deploy dist --project-name=implementors"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "^14.2.3",
+    "astro": "^7.2.4",
+    "wrangler": "^4.125.0"
+  }
+}

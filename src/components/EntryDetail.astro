@@ -1,0 +1,75 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { render } from 'astro:content';
+
+type AnyEntry =
+  | CollectionEntry<'spine'>
+  | CollectionEntry<'cards'>
+  | CollectionEntry<'diffs'>
+  | CollectionEntry<'lab'>;
+
+interface Props {
+  entry: AnyEntry;
+  showAbstract?: boolean;
+}
+
+const { entry, showAbstract = false } = Astro.props;
+const { Content } = await render(entry);
+const body = entry.body?.trim() ?? '';
+// First non-heading paragraph as a light abstract for cards.
+const abstract =
+  showAbstract
+    ? body
+        .split('\n')
+        .map((l) => l.trim())
+        .filter((l) => l && !l.startsWith('#') && !l.startsWith('---'))
+        .slice(0, 1)[0] ?? ''
+    : '';
+---
+
+<header>
+  <p class="meta">
+    <span class:list={['chip', { spine: entry.data.spine }]}>{entry.data.family}</span>
+    <span class="chip">{entry.data.status}</span>
+    {entry.data.spine && <span class="chip spine">spine</span>}
+    <span>updated {entry.data.updated.toISOString().slice(0, 10)}</span>
+  </p>
+  <h1>{entry.data.title}</h1>
+  {
+    entry.data.status === 'stub' && (
+      <p class="stub-note">Stub — heading-only / short placeholder for Lucien to replace.</p>
+    )
+  }
+</header>
+
+{
+  showAbstract && abstract && (
+    <p class="lede">{abstract}</p>
+  )
+}
+
+<div class="fcs-line">
+  <strong>#fcs-evolution</strong>
+  {entry.data.fcs_evolution}
+</div>
+
+<article class="prose">
+  <Content />
+</article>
+
+{
+  entry.data.sources.length > 0 && (
+    <section class="sources prose">
+      <h2>Sources</h2>
+      <ul>
+        {entry.data.sources.map((url) => (
+          <li>
+            <a href={url} rel="noopener noreferrer">
+              {url}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
