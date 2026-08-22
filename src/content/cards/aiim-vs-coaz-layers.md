@@ -2,7 +2,6 @@
 title: AIIM vs CoAZ layers
 status: card
 family: fapi
-spine: false
 fcs_evolution: Separate agent-identity (AIIM) from authorization mapping (CoAZ/AuthZEN) layers.
 sources:
   - https://openid.net/cg/artificial-intelligence-identity-management-community-group/

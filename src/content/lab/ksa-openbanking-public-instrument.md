@@ -2,7 +2,6 @@
 title: KSA Open Banking — public instrument
 status: card
 family: lab
-spine: false
 fcs_evolution: KSA public Framework/Lab/OIDF listing only; KSA FAPI profile is not public.
 sources:
   - https://openbanking.sa/index-en.html

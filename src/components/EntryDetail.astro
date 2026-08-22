@@ -3,7 +3,6 @@ import type { CollectionEntry } from 'astro:content';
 import { render } from 'astro:content';
 
 type AnyEntry =
-  | CollectionEntry<'spine'>
   | CollectionEntry<'cards'>
   | CollectionEntry<'diffs'>
   | CollectionEntry<'lab'>;
@@ -29,9 +28,8 @@ const abstract =
 
 <header>
   <p class="meta">
-    <span class:list={['chip', { spine: entry.data.spine }]}>{entry.data.family}</span>
+    <span class="chip">{entry.data.family}</span>
     <span class="chip">{entry.data.status}</span>
-    {entry.data.spine && <span class="chip spine">spine</span>}
     <span>updated {entry.data.updated.toISOString().slice(0, 10)}</span>
   </p>
   <h1>{entry.data.title}</h1>

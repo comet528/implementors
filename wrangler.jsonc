@@ -2,6 +2,8 @@
 	"$schema": "./node_modules/wrangler/config-schema.json",
 	"compatibility_date": "2026-08-22",
 	"compatibility_flags": ["global_fetch_strictly_public"],
+	// Astro emits into ./dist. Never run bare `wrangler deploy` without a prior build —
+	// use `npm run deploy` (build && wrangler deploy) so assets/directory cannot be empty.
 	"name": "implementors",
 	"main": "@astrojs/cloudflare/entrypoints/server",
 	"assets": {

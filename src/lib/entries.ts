@@ -10,10 +10,6 @@ export function byUpdatedDesc(
   );
 }
 
-export function entryHref(
-  collection: 'spine' | 'cards' | 'diffs' | 'lab',
-  slug: string,
-) {
-  if (collection === 'spine') return `/spine/${slug}/`;
+export function entryHref(collection: 'cards' | 'diffs' | 'lab', slug: string) {
   return `/${collection}/${slug}/`;
 }

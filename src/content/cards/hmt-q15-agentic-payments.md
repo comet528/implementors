@@ -2,7 +2,6 @@
 title: HMT Q15 — agentic payments
 status: card
 family: hmt
-spine: false
 fcs_evolution: HMT Modernising Payment Services consultation Q15 frames agentic payments consent/auth/liability.
 sources:
   - https://www.gov.uk/government/consultations/modernising-payment-services-regulation

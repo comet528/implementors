@@ -1,14 +1,17 @@
 #!/usr/bin/env node
 /**
  * Public-repo leak guard.
- * Build MUST fail if private/ or as-run/ directories appear anywhere in the tree
- * (especially under src/content). Everything in src/content is public.
+ * Build MUST fail if spine/, private/, or as-run/ directories appear anywhere.
+ *
+ * Public collections only: cards, diffs, lab.
+ * No spine collection, no /spine routes. fcs_evolution strings on cards only.
  */
-import { readdirSync, statSync } from 'node:fs';
+import { existsSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
 const ROOT = process.cwd();
 const SKIP = new Set(['node_modules', '.git', 'dist', '.astro', '.wrangler']);
+const FORBIDDEN_DIRS = new Set(['spine', 'private', 'as-run']);
 
 /** @type {string[]} */
 const hits = [];
@@ -33,7 +36,7 @@ function walk(dir) {
       continue;
     }
     if (!st.isDirectory()) continue;
-    if (name === 'private' || name === 'as-run') {
+    if (FORBIDDEN_DIRS.has(name)) {
       hits.push(relative(ROOT, full) || full);
     }
     walk(full);
@@ -42,11 +45,21 @@ function walk(dir) {
 
 walk(ROOT);
 
+// Also catch a lone src/pages/spine.astro (file, not directory).
+const pagesDir = join(ROOT, 'src', 'pages');
+if (existsSync(pagesDir)) {
+  for (const name of readdirSync(pagesDir)) {
+    if (name === 'spine.astro' || (name.startsWith('spine.') && name.endsWith('.astro'))) {
+      hits.push(`src/pages/${name} (/spine routes)`);
+    }
+  }
+}
+
 if (hits.length > 0) {
-  console.error('LEAK GUARD FAILED: forbidden directories found (public repo only):');
+  console.error('LEAK GUARD FAILED: forbidden paths found (public repo only):');
   for (const h of hits) console.error(`  - ${h}`);
-  console.error('Collections allowed: spine, cards, diffs, lab. No private/ or as-run/.');
+  console.error('Collections allowed: cards, diffs, lab. No spine/, private/, or as-run/.');
   process.exit(1);
 }
 
-console.log('Leak guard OK: no private/ or as-run/ directories.');
+console.log('Leak guard OK: no spine/, private/, or as-run/.');

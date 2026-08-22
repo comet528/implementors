@@ -2,7 +2,6 @@
 title: Rain — Agentic Payments Alliance
 status: stub
 family: adjacent
-spine: false
 fcs_evolution: Stub — adjacent industry alliance pointer (replace with first-real + source).
 sources: []
 updated: 2026-08-22

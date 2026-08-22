@@ -2,7 +2,6 @@
 title: KYA vs KYC vs KYB
 status: card
 family: kyc
-spine: false
 fcs_evolution: KYA supplements customer due diligence; it does not replace KYC/KYB.
 sources:
   - https://www.anchorage.com/research/who-banks-the-agents

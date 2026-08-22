@@ -3,14 +3,13 @@ import type { CollectionEntry } from 'astro:content';
 import { entryHref } from '../lib/entries';
 
 type AnyEntry =
-  | CollectionEntry<'spine'>
   | CollectionEntry<'cards'>
   | CollectionEntry<'diffs'>
   | CollectionEntry<'lab'>;
 
 interface Props {
   entries: AnyEntry[];
-  collection: 'spine' | 'cards' | 'diffs' | 'lab';
+  collection: 'cards' | 'diffs' | 'lab';
 }
 
 const { entries, collection } = Astro.props;
@@ -24,7 +23,6 @@ const { entries, collection } = Astro.props;
           <p class="title">{entry.data.title}</p>
           <p class="sub">
             {entry.data.status}
-            {entry.data.spine ? ' · spine' : ''}
             {' · '}
             {entry.data.family}
           </p>
