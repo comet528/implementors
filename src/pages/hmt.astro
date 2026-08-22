@@ -1,0 +1,18 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EntryList from '../components/EntryList.astro';
+import { byUpdatedDesc } from '../lib/entries';
+
+const entries = (await getCollection('cards', ({ data }) => data.family === 'hmt')).sort(
+  byUpdatedDesc,
+);
+---
+
+<BaseLayout title="HMT" description="HM Treasury family cards.">
+  <h1>HMT</h1>
+  <p class="lede">
+    HM Treasury modernising payment services / agentic payments public instruments.
+  </p>
+  <EntryList entries={entries} collection="cards" />
+</BaseLayout>

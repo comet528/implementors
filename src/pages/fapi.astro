@@ -1,0 +1,19 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EntryList from '../components/EntryList.astro';
+import { byUpdatedDesc } from '../lib/entries';
+
+const entries = (await getCollection('cards', ({ data }) => data.family === 'fapi')).sort(
+  byUpdatedDesc,
+);
+---
+
+<BaseLayout title="FAPI" description="FAPI family cards.">
+  <h1>FAPI</h1>
+  <p class="lede">
+    Family cards for FAPI profiles, OIDF conformance, AIIM, and AuthZEN/CoAZ. UK v4 = FAPI 1
+    Advanced; do not treat FAPI 2 Baseline as the UK read.
+  </p>
+  <EntryList entries={entries} collection="cards" />
+</BaseLayout>

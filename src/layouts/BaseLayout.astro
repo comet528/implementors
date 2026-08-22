@@ -1,0 +1,328 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = 'Implementors', description = 'Public open-finance implementor directory.' } =
+  Astro.props;
+const pageTitle = title === 'Implementors' ? title : `${title} · Implementors`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{pageTitle}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="wrap brand-row">
+        <a class="brand" href="/">Implementors</a>
+        <nav aria-label="Primary">
+          <a href="/">Home</a>
+          <a href="/spine/">Spine</a>
+          <a href="/fapi/">FAPI</a>
+          <a href="/obl/">OBL</a>
+          <a href="/hmt/">HMT</a>
+          <a href="/lab/">Lab</a>
+          <a href="/diffs/">Diffs</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main" class="wrap">
+      <slot />
+    </main>
+    <footer class="site-footer wrap">
+      <p>
+        Public collections only: <code>spine</code>, <code>cards</code>, <code>diffs</code>,
+        <code>lab</code>. No private or as-run content.
+      </p>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --ink: #14202b;
+    --muted: #4a5a68;
+    --line: #c9d3dc;
+    --paper: #eef2f5;
+    --panel: #f7f9fb;
+    --accent: #0b6e4f;
+    --accent-soft: #d7ebe3;
+    --warn: #8a3b12;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --sans: 'Source Sans 3', 'Segoe UI', sans-serif;
+    --serif: 'Source Serif 4', Georgia, serif;
+    --max: 52rem;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    color-scheme: light;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: var(--sans);
+    color: var(--ink);
+    background:
+      radial-gradient(1200px 500px at 10% -10%, #d9e7ef 0%, transparent 55%),
+      radial-gradient(900px 420px at 100% 0%, #dfece6 0%, transparent 50%),
+      linear-gradient(180deg, #e8eef3 0%, var(--paper) 40%, #e6ece8 100%);
+    line-height: 1.55;
+  }
+
+  .skip {
+    position: absolute;
+    left: -9999px;
+  }
+  .skip:focus {
+    left: 1rem;
+    top: 1rem;
+    z-index: 10;
+    background: white;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .wrap {
+    width: min(100% - 2rem, 72rem);
+    margin-inline: auto;
+  }
+
+  .site-header {
+    border-bottom: 1px solid var(--line);
+    background: color-mix(in srgb, white 72%, transparent);
+    backdrop-filter: blur(8px);
+    position: sticky;
+    top: 0;
+    z-index: 5;
+  }
+
+  .brand-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem 1.5rem;
+    padding: 0.9rem 0;
+  }
+
+  .brand {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 1.35rem;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem 1rem;
+  }
+
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  nav a:hover,
+  nav a:focus-visible {
+    color: var(--accent);
+  }
+
+  main {
+    padding: 2rem 0 3.5rem;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--serif);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  h1 {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    margin: 0 0 0.75rem;
+  }
+
+  h2 {
+    font-size: 1.35rem;
+    margin: 2rem 0 0.75rem;
+  }
+
+  p.lede {
+    max-width: var(--max);
+    color: var(--muted);
+    font-size: 1.05rem;
+    margin: 0 0 1.5rem;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+    margin: 0 0 1.25rem;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  .chip {
+    display: inline-block;
+    padding: 0.15rem 0.45rem;
+    border: 1px solid var(--line);
+    background: var(--panel);
+  }
+
+  .chip.spine {
+    background: var(--accent-soft);
+    border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
+    color: var(--accent);
+  }
+
+  .entry-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .entry-list a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--line);
+    background: color-mix(in srgb, white 80%, var(--panel));
+    transition: border-color 120ms ease, transform 120ms ease;
+  }
+
+  .entry-list a:hover,
+  .entry-list a:focus-visible {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  .entry-list .title {
+    font-weight: 700;
+    margin: 0 0 0.25rem;
+  }
+
+  .entry-list .sub {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+
+  .prose {
+    max-width: var(--max);
+  }
+
+  .prose :is(h2, h3) {
+    margin-top: 1.75rem;
+  }
+
+  .prose a {
+    color: var(--accent);
+  }
+
+  .prose code,
+  footer code {
+    font-family: var(--mono);
+    font-size: 0.9em;
+  }
+
+  .sources {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .sources ul {
+    padding-left: 1.1rem;
+  }
+
+  .fcs-line {
+    margin: 1rem 0 1.5rem;
+    padding: 0.75rem 1rem;
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+    max-width: var(--max);
+  }
+
+  .fcs-line strong {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 0.25rem;
+    color: var(--accent);
+  }
+
+  .family-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    margin-top: 1rem;
+  }
+
+  .family-grid a {
+    display: block;
+    padding: 1rem;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid var(--line);
+    background: color-mix(in srgb, white 75%, transparent);
+  }
+
+  .family-grid a:hover {
+    border-color: var(--accent);
+  }
+
+  .family-grid strong {
+    display: block;
+    font-family: var(--serif);
+    margin-bottom: 0.25rem;
+  }
+
+  .family-grid span {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .site-footer {
+    padding: 1.25rem 0 2rem;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .stub-note {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--warn);
+    margin: 0 0 1rem;
+  }
+</style>

@@ -1,0 +1,24 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EntryDetail from '../../components/EntryDetail.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('lab');
+  return entries.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { id: entry.id },
+  }));
+}
+
+const { id } = Astro.props;
+const entry = await getEntry('lab', id);
+if (!entry) {
+  throw new Error(`Missing lab entry: ${id}`);
+}
+---
+
+<BaseLayout title={entry.data.title} description={entry.data.fcs_evolution}>
+  <p class="meta"><span class="chip">public instrument only</span></p>
+  <EntryDetail entry={entry} />
+</BaseLayout>
