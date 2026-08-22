@@ -1,3 +1,2 @@
-# Implementors
-
-Implementors directory — Astro sample. Public collections only.
+# implementors
+Public open-finance implementor directory. Collections: spine, cards, diffs, lab only.
