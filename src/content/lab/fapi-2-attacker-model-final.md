@@ -2,7 +2,6 @@
 title: FAPI 2 Attacker Model (Final)
 status: card
 family: lab
-spine: false
 fcs_evolution: Public FAPI 2 attacker model instrument; not a substitute for UK FAPI 1 Advanced read.
 sources:
   - https://openid.net/specs/fapi-attacker-model-2_0-final.html

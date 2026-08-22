@@ -1,10 +1,15 @@
 #!/usr/bin/env node
 /**
  * Public-repo leak guard.
- * Build MUST fail if private/ or as-run/ directories appear anywhere in the tree
- * (especially under src/content). Everything in src/content is public.
+ * Build MUST fail if:
+ * - private/ or as-run/ directories appear anywhere in the tree
+ * - src/content/spine appears (spine is not a public collection)
+ * - /spine routes appear under src/pages
+ *
+ * Public collections only: cards, diffs, lab.
+ * Spine may exist only as fcs_evolution strings on cards — never as pages or a collection.
  */
-import { readdirSync, statSync } from 'node:fs';
+import { existsSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
 const ROOT = process.cwd();
@@ -42,11 +47,33 @@ function walk(dir) {
 
 walk(ROOT);
 
+const spineContent = join(ROOT, 'src', 'content', 'spine');
+if (existsSync(spineContent)) {
+  hits.push('src/content/spine');
+}
+
+const spinePages = join(ROOT, 'src', 'pages', 'spine');
+if (existsSync(spinePages)) {
+  hits.push('src/pages/spine (/spine routes)');
+} else {
+  // Any page file that would publish a /spine path (e.g. src/pages/spine.astro).
+  const pagesDir = join(ROOT, 'src', 'pages');
+  if (existsSync(pagesDir)) {
+    for (const name of readdirSync(pagesDir)) {
+      if (name === 'spine.astro' || name.startsWith('spine.')) {
+        hits.push(`src/pages/${name} (/spine routes)`);
+      }
+    }
+  }
+}
+
 if (hits.length > 0) {
-  console.error('LEAK GUARD FAILED: forbidden directories found (public repo only):');
+  console.error('LEAK GUARD FAILED: forbidden paths found (public repo only):');
   for (const h of hits) console.error(`  - ${h}`);
-  console.error('Collections allowed: spine, cards, diffs, lab. No private/ or as-run/.');
+  console.error(
+    'Collections allowed: cards, diffs, lab. No private/, as-run/, src/content/spine, or /spine routes.',
+  );
   process.exit(1);
 }
 
-console.log('Leak guard OK: no private/ or as-run/ directories.');
+console.log('Leak guard OK: no private/, as-run/, spine content, or /spine routes.');

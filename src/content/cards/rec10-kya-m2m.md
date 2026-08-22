@@ -2,7 +2,6 @@
 title: Rec 10 — KYA / M2M
 status: card
 family: hmt
-spine: false
 fcs_evolution: Recommendation 10 / KYA-M2M trust framing sits beside HMT agentic payments questions.
 sources:
   - https://www.gov.uk/government/consultations/modernising-payment-services-regulation

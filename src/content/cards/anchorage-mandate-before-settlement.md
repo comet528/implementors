@@ -2,7 +2,6 @@
 title: Anchorage — mandate before settlement
 status: card
 family: threat
-spine: false
 fcs_evolution: Public Anchorage framing — mandate checked before settlement on regulated rails.
 sources:
   - https://www.anchorage.com/research/who-banks-the-agents

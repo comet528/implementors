@@ -2,7 +2,6 @@
 title: Threat — agent ≠ PSU
 status: card
 family: threat
-spine: false
 fcs_evolution: Treat agent identity as distinct from PSU; never collapse them in hop evidence.
 sources: []
 updated: 2026-08-22

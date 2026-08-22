@@ -30,7 +30,6 @@ const pageTitle = title === 'Implementors' ? title : `${title} · Implementors`;
         <a class="brand" href="/">Implementors</a>
         <nav aria-label="Primary">
           <a href="/">Home</a>
-          <a href="/spine/">Spine</a>
           <a href="/fapi/">FAPI</a>
           <a href="/obl/">OBL</a>
           <a href="/hmt/">HMT</a>
@@ -44,8 +43,8 @@ const pageTitle = title === 'Implementors' ? title : `${title} · Implementors`;
     </main>
     <footer class="site-footer wrap">
       <p>
-        Public collections only: <code>spine</code>, <code>cards</code>, <code>diffs</code>,
-        <code>lab</code>. No private or as-run content.
+        Public collections only: <code>cards</code>, <code>diffs</code>, <code>lab</code>. No
+        spine pages, private, or as-run content.
       </p>
     </footer>
   </body>
@@ -193,12 +192,6 @@ const pageTitle = title === 'Implementors' ? title : `${title} · Implementors`;
     padding: 0.15rem 0.45rem;
     border: 1px solid var(--line);
     background: var(--panel);
-  }
-
-  .chip.spine {
-    background: var(--accent-soft);
-    border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
-    color: var(--accent);
   }
 
   .entry-list {

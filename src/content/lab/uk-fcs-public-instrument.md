@@ -2,7 +2,6 @@
 title: UK FCS — public instrument
 status: card
 family: lab
-spine: false
 fcs_evolution: UK FCS public suite/discovery/manifests only — never as-run hop scores.
 sources:
   - https://openid.net/certification/certification-fapi_op_testing/

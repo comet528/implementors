@@ -2,7 +2,6 @@
 title: OBL — King — no AI payments standard
 status: card
 family: obl
-spine: false
 fcs_evolution: OBL public positioning that there is not yet an AI payments standard to implement against.
 sources: []
 updated: 2026-08-22
