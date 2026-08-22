@@ -1,19 +1,17 @@
 #!/usr/bin/env node
 /**
  * Public-repo leak guard.
- * Build MUST fail if:
- * - private/ or as-run/ directories appear anywhere in the tree
- * - src/content/spine appears (spine is not a public collection)
- * - /spine routes appear under src/pages
+ * Build MUST fail if spine/, private/, or as-run/ directories appear anywhere.
  *
  * Public collections only: cards, diffs, lab.
- * Spine may exist only as fcs_evolution strings on cards — never as pages or a collection.
+ * No spine collection, no /spine routes. fcs_evolution strings on cards only.
  */
 import { existsSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
 const ROOT = process.cwd();
 const SKIP = new Set(['node_modules', '.git', 'dist', '.astro', '.wrangler']);
+const FORBIDDEN_DIRS = new Set(['spine', 'private', 'as-run']);
 
 /** @type {string[]} */
 const hits = [];
@@ -38,7 +36,7 @@ function walk(dir) {
       continue;
     }
     if (!st.isDirectory()) continue;
-    if (name === 'private' || name === 'as-run') {
+    if (FORBIDDEN_DIRS.has(name)) {
       hits.push(relative(ROOT, full) || full);
     }
     walk(full);
@@ -47,22 +45,12 @@ function walk(dir) {
 
 walk(ROOT);
 
-const spineContent = join(ROOT, 'src', 'content', 'spine');
-if (existsSync(spineContent)) {
-  hits.push('src/content/spine');
-}
-
-const spinePages = join(ROOT, 'src', 'pages', 'spine');
-if (existsSync(spinePages)) {
-  hits.push('src/pages/spine (/spine routes)');
-} else {
-  // Any page file that would publish a /spine path (e.g. src/pages/spine.astro).
-  const pagesDir = join(ROOT, 'src', 'pages');
-  if (existsSync(pagesDir)) {
-    for (const name of readdirSync(pagesDir)) {
-      if (name === 'spine.astro' || name.startsWith('spine.')) {
-        hits.push(`src/pages/${name} (/spine routes)`);
-      }
+// Also catch a lone src/pages/spine.astro (file, not directory).
+const pagesDir = join(ROOT, 'src', 'pages');
+if (existsSync(pagesDir)) {
+  for (const name of readdirSync(pagesDir)) {
+    if (name === 'spine.astro' || (name.startsWith('spine.') && name.endsWith('.astro'))) {
+      hits.push(`src/pages/${name} (/spine routes)`);
     }
   }
 }
@@ -70,10 +58,8 @@ if (existsSync(spinePages)) {
 if (hits.length > 0) {
   console.error('LEAK GUARD FAILED: forbidden paths found (public repo only):');
   for (const h of hits) console.error(`  - ${h}`);
-  console.error(
-    'Collections allowed: cards, diffs, lab. No private/, as-run/, src/content/spine, or /spine routes.',
-  );
+  console.error('Collections allowed: cards, diffs, lab. No spine/, private/, or as-run/.');
   process.exit(1);
 }
 
-console.log('Leak guard OK: no private/, as-run/, spine content, or /spine routes.');
+console.log('Leak guard OK: no spine/, private/, or as-run/.');

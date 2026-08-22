@@ -7,9 +7,12 @@ Collections (public only): `cards`, `diffs`, `lab`.
 Hard rules:
 
 - No `private/`, no `as-run/`, no unpublished fields, no `/fcs/*` or `/private/*` routes.
-- No `src/content/spine` and no `/spine` routes. Spine is not a public conversation; it may appear only as `fcs_evolution` strings on cards.
+- No `spine/` anywhere (no spine collection, no `/spine` routes, no boolean `spine` frontmatter).
+- `fcs_evolution` is a string on a card only — not a route and not a collection.
+- `family`: `fapi`|`obl`|`hmt`|`threat`|`kyc`|`diffs`|`lab`|`adjacent` (no `family:spine`).
 - Everything under `src/content` is public. If it cannot be public, it does not enter the repo.
-- Build fails if `private/`, `as-run/`, `src/content/spine`, or `/spine` routes appear (leak guard).
+- Build fails if `spine/`, `private/`, or `as-run/` appears (leak guard).
+- Off this repo: hop-path, observer-cards, evidence-pack, collector-as-gate, unauthorised-liability-asserts, signed-test-packs-sip.
 
 ## Quick start
 
@@ -36,13 +39,13 @@ Markdown cards live in:
 
 Shared frontmatter: `title`, `status` (`card`|`stub`), `family` (`fapi`|`obl`|`hmt`|`threat`|`kyc`|`diffs`|`lab`|`adjacent`), `fcs_evolution` (string — not a route), `sources` (url[]), `updated` (ISO date), `slug`.
 
-`#fcs-evolution` is a string field on a card, not a route.
+`#fcs-evolution` is a string field on a card, not a route. No boolean `spine` field.
 
 ## Routes
 
 | Path | Purpose |
 | --- | --- |
-| `/` | Families, then cards / lab / diffs |
+| `/` | Family indexes only |
 | `/fapi/`, `/obl/`, `/hmt/` | Family filters |
 | `/cards/[slug]` | Card detail (title, abstract, sources, fcs_evolution) |
 | `/diffs/`, `/diffs/[slug]` | Diffs |
@@ -97,6 +100,6 @@ If Pages is not yet connected, the remaining click is: **Cloudflare Dashboard �
 npm run leak-guard
 # Failure modes (do not commit):
 # mkdir -p src/content/private && npm run build   # must fail
-# mkdir -p src/content/spine && npm run build     # must fail
-# mkdir -p src/pages/spine && npm run build       # must fail
+# mkdir -p spine && npm run build                 # must fail
+# mkdir -p as-run && npm run build                # must fail
 ```

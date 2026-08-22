@@ -1,12 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import EntryList from '../components/EntryList.astro';
-import { byUpdatedDesc } from '../lib/entries';
-
-const cards = (await getCollection('cards')).sort(byUpdatedDesc);
-const diffs = (await getCollection('diffs')).sort(byUpdatedDesc);
-const lab = (await getCollection('lab')).sort(byUpdatedDesc);
 
 const families = [
   { href: '/fapi/', label: 'FAPI', blurb: 'Profiles, OIDF conformance, AuthZEN/CoAZ, AIIM.' },
@@ -20,8 +13,8 @@ const families = [
 <BaseLayout title="Implementors" description="Public open-finance implementor directory.">
   <h1>Implementors</h1>
   <p class="lede">
-    Public directory of family cards, diffs, and lab instruments for open-finance implementors.
-    Collections: <code>cards</code>, <code>diffs</code>, <code>lab</code> only.
+    Public directory. Collections: <code>cards</code>, <code>diffs</code>,
+    <code>lab</code> only. Browse by family.
   </p>
 
   <h2>Families</h2>
@@ -35,13 +28,4 @@ const families = [
       ))
     }
   </div>
-
-  <h2>All cards</h2>
-  <EntryList entries={cards} collection="cards" />
-
-  <h2>Lab instruments</h2>
-  <EntryList entries={lab} collection="lab" />
-
-  <h2>Diffs</h2>
-  <EntryList entries={diffs} collection="diffs" />
 </BaseLayout>
