@@ -3,8 +3,10 @@
  * Public-repo leak guard.
  * Build MUST fail if private/ or as-run/ directories appear anywhere in the tree
  * (especially under src/content). Everything in src/content is public.
+ * Also fails if the internal spine surface (src/content/spine, src/pages/spine)
+ * reappears — hop-path / observer-cards / evidence-pack are not public pages.
  */
-import { readdirSync, statSync } from 'node:fs';
+import { existsSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
 const ROOT = process.cwd();
@@ -42,11 +44,20 @@ function walk(dir) {
 
 walk(ROOT);
 
+const spinePaths = ['src/content/spine', 'src/pages/spine'];
+for (const p of spinePaths) {
+  if (existsSync(join(ROOT, p))) {
+    hits.push(p);
+  }
+}
+
 if (hits.length > 0) {
   console.error('LEAK GUARD FAILED: forbidden directories found (public repo only):');
   for (const h of hits) console.error(`  - ${h}`);
-  console.error('Collections allowed: spine, cards, diffs, lab. No private/ or as-run/.');
+  console.error(
+    'Collections allowed: cards, diffs, lab. No private/, as-run/, or spine/.',
+  );
   process.exit(1);
 }
 
-console.log('Leak guard OK: no private/ or as-run/ directories.');
+console.log('Leak guard OK: no private/, as-run/, or spine/ directories.');

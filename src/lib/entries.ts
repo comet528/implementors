@@ -11,9 +11,8 @@ export function byUpdatedDesc(
 }
 
 export function entryHref(
-  collection: 'spine' | 'cards' | 'diffs' | 'lab',
+  collection: 'cards' | 'diffs' | 'lab',
   slug: string,
 ) {
-  if (collection === 'spine') return `/spine/${slug}/`;
   return `/${collection}/${slug}/`;
 }
