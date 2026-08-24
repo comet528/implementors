@@ -4,7 +4,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import EntryList from '../components/EntryList.astro';
 import { byUpdatedDesc } from '../lib/entries';
 
-const spine = (await getCollection('spine')).sort(byUpdatedDesc);
 const cards = (await getCollection('cards')).sort(byUpdatedDesc);
 const diffs = (await getCollection('diffs')).sort(byUpdatedDesc);
 const lab = (await getCollection('lab')).sort(byUpdatedDesc);
@@ -21,14 +20,9 @@ const families = [
 <BaseLayout title="Implementors" description="Public open-finance implementor directory.">
   <h1>Implementors</h1>
   <p class="lede">
-    Public directory of spine cards, family cards, diffs, and lab instruments for open-finance
-    implementors. Collections: <code>spine</code>, <code>cards</code>, <code>diffs</code>,
-    <code>lab</code> only.
+    Public directory of family cards, diffs, and lab instruments for open-finance implementors.
+    Collections: <code>cards</code>, <code>diffs</code>, <code>lab</code> only.
   </p>
-
-  <h2>Spine</h2>
-  <p class="lede">Entries with <code>spine: true</code> — start here.</p>
-  <EntryList entries={spine} collection="spine" />
 
   <h2>Families</h2>
   <div class="family-grid">

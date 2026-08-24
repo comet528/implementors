@@ -1,3 +1,8 @@
+## Public collections
+
+Public content collections and routes: `cards`, `diffs`, `lab` only.
+Do not add `spine` (`src/content/spine`, `src/pages/spine`, `/spine`), `private/`, or `as-run/`.
+
 ## Development
 
 When starting the dev server, use background mode:

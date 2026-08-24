@@ -24,11 +24,6 @@ const cardSchema = z.object({
   slug: z.string(),
 });
 
-const spine = defineCollection({
-  loader: glob({ base: './src/content/spine', pattern: '**/*.md' }),
-  schema: cardSchema,
-});
-
 const cards = defineCollection({
   loader: glob({ base: './src/content/cards', pattern: '**/*.md' }),
   schema: cardSchema,
@@ -44,4 +39,4 @@ const lab = defineCollection({
   schema: cardSchema,
 });
 
-export const collections = { spine, cards, diffs, lab };
+export const collections = { cards, diffs, lab };
