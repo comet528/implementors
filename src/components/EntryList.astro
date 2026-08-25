@@ -15,18 +15,19 @@ interface Props {
 const { entries, collection } = Astro.props;
 ---
 
-<ul class="entry-list">
-  {
-    entries.map((entry) => {
-      const unfinished = entry.data.status === 'stub';
-      return (
-        <li class:list={{ stub: unfinished }}>
+{
+  entries.length === 0 ? (
+    <p class="lede">No notes here yet.</p>
+  ) : (
+    <ul class="entry-list">
+      {entries.map((entry) => (
+        <li>
           <a href={entryHref(collection, entry.data.slug)}>
             <p class="title">{entry.data.title}</p>
-            <p class="sub">{unfinished ? 'Unfinished — heading only' : 'Note'}</p>
+            <p class="sub">{entry.data.family}</p>
           </a>
         </li>
-      );
-    })
-  }
-</ul>
+      ))}
+    </ul>
+  )
+}

@@ -7,8 +7,8 @@ import { byUpdatedDesc } from '../../lib/entries';
 const entries = (await getCollection('diffs')).sort(byUpdatedDesc);
 ---
 
-<BaseLayout title="Diffs" description="Protocol diffs for implementors.">
+<BaseLayout title="Diffs" description="Protocol and flow differences for implementors.">
   <h1>Diffs</h1>
-  <p class="lede">Protocol and flow diffs. Stubs are heading-only until first-real content lands.</p>
+  <p class="lede">Protocol and flow differences implementors need to choose between.</p>
   <EntryList entries={entries} collection="diffs" />
 </BaseLayout>

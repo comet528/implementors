@@ -1,9 +1,6 @@
 ---
 title: FAPI 1 Advanced vs FAPI 2 SP
-status: card
 family: fapi
-spine: false
-fcs_evolution: UK Open Banking v4 aligns to FAPI 1 Advanced; do not read FAPI 2 Baseline as UK current.
 sources:
   - https://openid.net/specs/fapi-security-profile-2_0-final.html
   - https://openid.net/certification/certification-fapi_op_testing/

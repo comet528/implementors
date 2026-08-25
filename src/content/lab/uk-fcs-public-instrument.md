@@ -1,9 +1,6 @@
 ---
-title: UK FCS — public instrument
-status: card
+title: UK Open Banking — OIDF conformance suite
 family: lab
-spine: false
-fcs_evolution: UK FCS public suite/discovery/manifests only — never as-run hop scores.
 sources:
   - https://openid.net/certification/certification-fapi_op_testing/
   - https://openid.net/certification/
@@ -11,6 +8,6 @@ updated: 2026-08-22
 slug: uk-fcs-public-instrument
 ---
 
-# UK FCS — public instrument
+# UK Open Banking — OIDF conformance suite
 
-Public instrument leaf for UK Financial Conformance Suite / Open Banking UK profile paths: suite, discovery, and manifests. **Not as-run.** UK v4 reads as FAPI 1 Advanced via OIDF `openbanking_uk` profile guidance.
+Published OIDF suite, discovery, and related materials for UK Open Banking FAPI profile paths. UK v4 reads as FAPI 1 Advanced via the OIDF `openbanking_uk` profile guidance.

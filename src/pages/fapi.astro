@@ -4,19 +4,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import EntryList from '../components/EntryList.astro';
 import { byUpdatedDesc } from '../lib/entries';
 
-const entries = (await getCollection('cards', ({ data }) => data.family === 'fapi' || data.family === 'threat')).sort(
-  byUpdatedDesc,
-);
+const entries = (
+  await getCollection('cards', ({ data }) => data.family === 'fapi' || data.family === 'threat')
+).sort(byUpdatedDesc);
 ---
 
 <BaseLayout
-  title="How API security works"
-  description="UK open banking still reads FAPI 1 Advanced. Do not treat FAPI 2 as the UK rulebook."
+  title="API security"
+  description="FAPI profiles, OIDF conformance, AuthZEN/CoAZ, and related notes."
 >
-  <h1>How API security works</h1>
+  <h1>API security</h1>
   <p class="lede">
-    UK open banking still reads FAPI 1 Advanced. Do not treat FAPI 2 as the UK rulebook. A piece of
-    software that pays is not the customer — that threat sits here too.
+    FAPI profiles, OIDF conformance, AuthZEN/CoAZ, and related notes. UK Open Banking v4 remains on
+    FAPI 1 Advanced.
   </p>
   <EntryList entries={entries} collection="cards" />
 </BaseLayout>

@@ -11,44 +11,39 @@ const lab = (await getCollection('lab')).sort(byUpdatedDesc);
 const doors = [
   {
     href: '/fapi/',
-    label: 'How API security works',
-    blurb:
-      'UK open banking still reads FAPI 1 Advanced. Do not treat FAPI 2 as the UK rulebook.',
+    label: 'API security',
+    blurb: 'FAPI profiles, OIDF conformance, AuthZEN/CoAZ, and related notes.',
   },
   {
     href: '/obl/',
-    label: 'What Open Banking Limited has said',
-    blurb:
-      'What OBL has published — and has not. There is still no UK standard for AI-driven payments.',
+    label: 'Open Banking Limited',
+    blurb: 'Notes that cite OBL public materials.',
   },
   {
     href: '/hmt/',
-    label: 'Treasury questions',
-    blurb: 'Can software pay? Who consented? Who is liable if it goes wrong?',
-  },
-  {
-    href: '/fapi/',
-    label: 'Threat: the agent is not the customer',
-    blurb:
-      'A piece of software is not the person. Put the mandate on the account first.',
+    label: 'HM Treasury',
+    blurb: 'Consultation questions on agentic payments, consent, and liability.',
   },
   {
     href: '/lab/',
-    label: 'Public test kits',
-    blurb:
-      'UK FCS, KSA listings, mock banks. The published suite — never a scored lab run.',
+    label: 'Lab instruments',
+    blurb: 'Published suites, attacker models, and framework listings.',
+  },
+  {
+    href: '/diffs/',
+    label: 'Diffs',
+    blurb: 'Protocol and flow differences implementors need to choose between.',
   },
 ];
 ---
 
 <BaseLayout
   title="Implementors"
-  description="A notebook for people who implement open-banking and open-finance APIs."
+  description="Public notes on open-banking and open-finance standards for implementors."
 >
   <h1>Implementors</h1>
   <p class="lede">
-    This is a notebook for people who implement open-banking and open-finance APIs. It is not a
-    product. It is not a shop.
+    Public notes on open-banking and open-finance standards for implementors.
   </p>
 
   <h2>Start here</h2>
@@ -64,14 +59,11 @@ const doors = [
   </div>
 
   <h2>Notes</h2>
-  <p class="lede">
-    A filled card is a real note. An unfinished one is empty on purpose — heading only, no body yet.
-  </p>
   <EntryList entries={cards} collection="cards" />
 
-  <h2>Public test kits</h2>
+  <h2>Lab instruments</h2>
   <EntryList entries={lab} collection="lab" />
 
-  <h2>What changed between versions</h2>
+  <h2>Diffs</h2>
   <EntryList entries={diffs} collection="diffs" />
 </BaseLayout>

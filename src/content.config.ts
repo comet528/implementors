@@ -2,23 +2,10 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
-/** Shared frontmatter for all public collections. No unpublished field. */
+/** Shared frontmatter for all public collections. */
 const cardSchema = z.object({
   title: z.string(),
-  status: z.enum(['card', 'stub']),
-  family: z.enum([
-    'spine',
-    'fapi',
-    'obl',
-    'hmt',
-    'threat',
-    'kyc',
-    'diffs',
-    'lab',
-    'adjacent',
-  ]),
-  spine: z.boolean(),
-  fcs_evolution: z.string(),
+  family: z.enum(['fapi', 'obl', 'hmt', 'threat', 'kyc', 'diffs', 'lab', 'adjacent']),
   sources: z.array(z.string().url()).default([]),
   updated: z.coerce.date(),
   slug: z.string(),
