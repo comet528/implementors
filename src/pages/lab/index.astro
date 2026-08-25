@@ -7,12 +7,14 @@ import { byUpdatedDesc } from '../../lib/entries';
 const entries = (await getCollection('lab')).sort(byUpdatedDesc);
 ---
 
-<BaseLayout title="Lab" description="Public lab instruments only.">
-  <h1>Lab</h1>
+<BaseLayout
+  title="Public test kits"
+  description="UK FCS, KSA listings, mock banks. The published suite — never a scored lab run."
+>
+  <h1>Public test kits</h1>
   <p class="lede">
-    Public instruments only (suite/discovery/manifests, Framework/Lab listings). No as-run hop
-    scores. No UK/KSA FCS-as-run files. Public instrument leaves live under <code>/lab</code> or
-    <code>/cards</code> — there is no <code>/fcs/*</code> route.
+    UK FCS, KSA listings, mock banks. These are the published suites and listings — not a scored
+    lab run.
   </p>
   <EntryList entries={entries} collection="lab" />
 </BaseLayout>

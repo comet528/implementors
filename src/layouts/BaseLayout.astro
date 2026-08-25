@@ -4,7 +4,7 @@ interface Props {
   description?: string;
 }
 
-const { title = 'Implementors', description = 'Public open-finance implementor directory.' } =
+const { title = 'Implementors', description = 'A notebook for people who implement open-banking and open-finance APIs.' } =
   Astro.props;
 const pageTitle = title === 'Implementors' ? title : `${title} · Implementors`;
 ---
@@ -30,11 +30,11 @@ const pageTitle = title === 'Implementors' ? title : `${title} · Implementors`;
         <a class="brand" href="/">Implementors</a>
         <nav aria-label="Primary">
           <a href="/">Home</a>
-          <a href="/fapi/">FAPI</a>
+          <a href="/fapi/">Security</a>
           <a href="/obl/">OBL</a>
-          <a href="/hmt/">HMT</a>
-          <a href="/lab/">Lab</a>
-          <a href="/diffs/">Diffs</a>
+          <a href="/hmt/">Treasury</a>
+          <a href="/lab/">Test kits</a>
+          <a href="/diffs/">Versions</a>
         </nav>
       </div>
     </header>
@@ -42,10 +42,7 @@ const pageTitle = title === 'Implementors' ? title : `${title} · Implementors`;
       <slot />
     </main>
     <footer class="site-footer wrap">
-      <p>
-        Public collections only: <code>cards</code>, <code>diffs</code>,
-        <code>lab</code>. No private or as-run content.
-      </p>
+      <p>A notebook. Not a product. Not a shop.</p>
     </footer>
   </body>
 </html>
@@ -194,12 +191,6 @@ const pageTitle = title === 'Implementors' ? title : `${title} · Implementors`;
     background: var(--panel);
   }
 
-  .chip.spine {
-    background: var(--accent-soft);
-    border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
-    color: var(--accent);
-  }
-
   .entry-list {
     list-style: none;
     padding: 0;
@@ -233,6 +224,23 @@ const pageTitle = title === 'Implementors' ? title : `${title} · Implementors`;
     margin: 0;
     color: var(--muted);
     font-size: 0.92rem;
+  }
+
+  .entry-list li.stub a {
+    border-style: dashed;
+    background: transparent;
+    opacity: 0.72;
+  }
+
+  .entry-list li.stub .title {
+    font-weight: 500;
+    color: var(--muted);
+  }
+
+  .entry-list li.stub .sub {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--warn);
   }
 
   .prose {
