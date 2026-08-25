@@ -1,19 +1,30 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import EntryList from '../../components/EntryList.astro';
-import { byUpdatedDesc } from '../../lib/entries';
+import { byOrderAsc, entryHref } from '../../lib/entries';
 
-const entries = (await getCollection('lab')).sort(byUpdatedDesc);
+const entries = (await getCollection('lab')).sort(byOrderAsc);
 ---
 
-<BaseLayout
-  title="Lab instruments"
-  description="Published suites, attacker models, and framework listings."
->
-  <h1>Lab instruments</h1>
-  <p class="lede">
-    Published suites, attacker models, and framework listings for implementors.
-  </p>
-  <EntryList entries={entries} collection="lab" />
+<BaseLayout title="Lab notes" description="Published suites, attacker models, and framework listings.">
+  <div class="wrap solo">
+    <a class="back-link" href="/">← Issue 1</a>
+    <header class="issue-head">
+      <p class="issue-kicker">Issue 1 · Lab</p>
+      <h1>Lab notes</h1>
+      <p class="lede">Published suites, attacker models, and framework listings.</p>
+    </header>
+    <ol class="toc">
+      {
+        entries.map((entry) => (
+          <li>
+            <a href={entryHref('lab', entry.data.slug)}>
+              <span class="toc-title">{entry.data.title}</span>
+              <span class="toc-section">Lab</span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
 </BaseLayout>

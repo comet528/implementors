@@ -1,13 +1,14 @@
 ---
-title: UK Open Banking — OIDF conformance suite
+title: UK Open Banking — OIDF suite
 family: lab
 sources:
   - https://openid.net/certification/certification-fapi_op_testing/
   - https://openid.net/certification/
-updated: 2026-08-22
+updated: 2026-08-25
 slug: uk-fcs-public-instrument
+order: 6
+section: Lab
 ---
 
-# UK Open Banking — OIDF conformance suite
 
-Published OIDF suite, discovery, and related materials for UK Open Banking FAPI profile paths. UK v4 reads as FAPI 1 Advanced via the OIDF `openbanking_uk` profile guidance.
+OIDF publishes suite and discovery materials for UK Open Banking FAPI profile paths, including an `openbanking_uk` path aimed at FAPI1-Advanced-Final testing. Use those published instruments when you need the official conformance surface; UK v4 still reads as FAPI 1 Advanced.

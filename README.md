@@ -1,8 +1,10 @@
 # Implementors
 
-Public open-finance **implementor directory**. Deployable Astro site.
+Public open-finance **newsletter** for implementors. Deployable Astro site.
 
-Collections (public only): `cards`, `diffs`, `lab`.
+Issue 1 (August 2026) is the homepage: short, sourced pieces—not a filing cabinet.
+
+Collections (content store only): `cards`, `diffs`, `lab`.
 
 Hard rules:
 
@@ -10,6 +12,7 @@ Hard rules:
 - No public `spine` collection or `/spine` routes (internal hop-path / observer-cards / evidence-pack stay out of this repo).
 - Everything under `src/content` is public. If it cannot be public, it does not enter the repo.
 - Build fails if `private/`, `as-run/`, `src/content/spine`, or `src/pages/spine` appear (leak guard).
+- Never publish staff names, agent names, Slack rooms, or internal process labels on public pages.
 
 ## Quick start
 
@@ -27,27 +30,23 @@ npm run preview
 
 ## Content
 
-Markdown notes live in:
+Markdown pieces live in:
 
-- `src/content/cards/`
-- `src/content/diffs/`
-- `src/content/lab/`
+- `src/content/cards/` — features
+- `src/content/lab/` — lab notes
+- `src/content/diffs/` — reserved (empty in Issue 1)
 
-Shared frontmatter: `title`, `family` (`fapi`|`obl`|`hmt`|`threat`|`kyc`|`diffs`|`lab`|`adjacent`), `sources` (url[]), `updated` (ISO date), `slug`.
+Shared frontmatter: `title`, `family`, `sources` (url[]), `updated`, `slug`, `order`, optional `illustration` (filename under `public/issue-1/`), `section` (`Feature`|`Lab`).
 
-Publish only notes a stranger can use (official HMT / FAPI / OBL / lab URLs). Do not publish staff names, agent names, Slack channels, or internal process labels.
+Art for Issue 1 lives in `public/issue-1/`.
 
 ## Routes
 
 | Path | Purpose |
 | --- | --- |
-| `/` | Doors, then cards / lab / diffs |
-| `/fapi/`, `/obl/`, `/hmt/` | Family filters |
-| `/cards/[slug]` | Card detail |
-| `/diffs/`, `/diffs/[slug]` | Diffs |
-| `/lab/`, `/lab/[slug]` | Lab instruments |
-
-Nav: Home, API security, OBL, HMT, Lab, Diffs.
+| `/` | Issue 1 (masthead, contents, pieces) |
+| `/cards/[slug]` | Feature permalink |
+| `/lab/`, `/lab/[slug]` | Lab notes |
 
 ## Cloudflare Pages
 
@@ -66,8 +65,6 @@ Wrangler/Pages config is in `wrangler.jsonc` (project name `implementors`). Adap
    npx wrangler login
    npm run pages:deploy
    ```
-
-This environment cannot invent a live Pages URL. If Pages is not yet connected, the remaining click is: **Cloudflare Dashboard → Create Pages project → Connect GitHub repo `comet528/implementors`**.
 
 ## Leak guard check
 
