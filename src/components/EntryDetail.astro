@@ -28,17 +28,10 @@ const abstract =
 
 <header>
   <p class="meta">
-    <span class:list={['chip', { spine: entry.data.spine }]}>{entry.data.family}</span>
-    <span class="chip">{entry.data.status}</span>
-    {entry.data.spine && <span class="chip spine">spine</span>}
+    <span class="chip">{entry.data.family}</span>
     <span>updated {entry.data.updated.toISOString().slice(0, 10)}</span>
   </p>
   <h1>{entry.data.title}</h1>
-  {
-    entry.data.status === 'stub' && (
-      <p class="stub-note">Stub — heading-only / short placeholder for Lucien to replace.</p>
-    )
-  }
 </header>
 
 {
@@ -46,11 +39,6 @@ const abstract =
     <p class="lede">{abstract}</p>
   )
 }
-
-<div class="fcs-line">
-  <strong>#fcs-evolution</strong>
-  {entry.data.fcs_evolution}
-</div>
 
 <article class="prose">
   <Content />

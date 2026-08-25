@@ -10,10 +10,12 @@ const entries = (await getCollection('cards', ({ data }) => data.family === 'hmt
 ---
 
 <BaseLayout
-  title="Treasury questions"
-  description="Can software pay? Who consented? Who is liable if it goes wrong?"
+  title="HM Treasury"
+  description="Consultation questions on agentic payments, consent, and liability."
 >
-  <h1>Treasury questions</h1>
-  <p class="lede">Can software pay? Who consented? Who is liable if it goes wrong?</p>
+  <h1>HM Treasury</h1>
+  <p class="lede">
+    Consultation questions on agentic payments, consent, and liability.
+  </p>
   <EntryList entries={entries} collection="cards" />
 </BaseLayout>

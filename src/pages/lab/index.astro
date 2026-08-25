@@ -8,13 +8,12 @@ const entries = (await getCollection('lab')).sort(byUpdatedDesc);
 ---
 
 <BaseLayout
-  title="Public test kits"
-  description="UK FCS, KSA listings, mock banks. The published suite — never a scored lab run."
+  title="Lab instruments"
+  description="Published suites, attacker models, and framework listings."
 >
-  <h1>Public test kits</h1>
+  <h1>Lab instruments</h1>
   <p class="lede">
-    UK FCS, KSA listings, mock banks. These are the published suites and listings — not a scored
-    lab run.
+    Published suites, attacker models, and framework listings for implementors.
   </p>
   <EntryList entries={entries} collection="lab" />
 </BaseLayout>

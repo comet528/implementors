@@ -1,9 +1,6 @@
 ---
 title: AuthZEN / CoAZ / MCP
-status: card
 family: fapi
-spine: false
-fcs_evolution: AuthZEN + CoAZ-MCP give a public authorization path for agent tool calls.
 sources:
   - https://openid.net/getting-cozy-with-coaz-securing-apis-and-ai-agents-with-standardized-authorization/
   - https://openid.net/openid-foundation-advances-authorization-for-the-agent-era-with-new-authzen-working-group-drafts/

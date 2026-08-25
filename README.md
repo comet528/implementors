@@ -1,6 +1,6 @@
 # Implementors
 
-Public open-finance **implementor directory**. Deployable Astro sample.
+Public open-finance **implementor directory**. Deployable Astro site.
 
 Collections (public only): `cards`, `diffs`, `lab`.
 
@@ -27,27 +27,27 @@ npm run preview
 
 ## Content
 
-Markdown cards live in:
+Markdown notes live in:
 
 - `src/content/cards/`
 - `src/content/diffs/`
 - `src/content/lab/`
 
-Shared frontmatter: `title`, `status` (`card`|`stub`), `family` (`spine`|`fapi`|`obl`|`hmt`|`threat`|`kyc`|`diffs`|`lab`|`adjacent`), `spine` (bool — metadata only, not a route), `fcs_evolution` (string — not a route), `sources` (url[]), `updated` (ISO date), `slug`.
+Shared frontmatter: `title`, `family` (`fapi`|`obl`|`hmt`|`threat`|`kyc`|`diffs`|`lab`|`adjacent`), `sources` (url[]), `updated` (ISO date), `slug`.
 
-`#fcs-evolution` is a string field on a card, not a route. The `spine` frontmatter bool may appear on a card; it does not create `/spine` pages.
+Publish only notes a stranger can use (official HMT / FAPI / OBL / lab URLs). Do not publish staff names, agent names, Slack channels, or internal process labels.
 
 ## Routes
 
 | Path | Purpose |
 | --- | --- |
-| `/` | Families, then cards / lab / diffs |
+| `/` | Doors, then cards / lab / diffs |
 | `/fapi/`, `/obl/`, `/hmt/` | Family filters |
-| `/cards/[slug]` | Card detail (title, abstract, sources, fcs_evolution) |
+| `/cards/[slug]` | Card detail |
 | `/diffs/`, `/diffs/[slug]` | Diffs |
-| `/lab/`, `/lab/[slug]` | Public instruments only |
+| `/lab/`, `/lab/[slug]` | Lab instruments |
 
-Nav: Home, FAPI, OBL, HMT, Lab, Diffs.
+Nav: Home, API security, OBL, HMT, Lab, Diffs.
 
 ## Cloudflare Pages
 

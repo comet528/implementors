@@ -4,8 +4,10 @@ interface Props {
   description?: string;
 }
 
-const { title = 'Implementors', description = 'A notebook for people who implement open-banking and open-finance APIs.' } =
-  Astro.props;
+const {
+  title = 'Implementors',
+  description = 'Public notes on open-banking and open-finance standards for implementors.',
+} = Astro.props;
 const pageTitle = title === 'Implementors' ? title : `${title} · Implementors`;
 ---
 
@@ -30,11 +32,11 @@ const pageTitle = title === 'Implementors' ? title : `${title} · Implementors`;
         <a class="brand" href="/">Implementors</a>
         <nav aria-label="Primary">
           <a href="/">Home</a>
-          <a href="/fapi/">Security</a>
+          <a href="/fapi/">API security</a>
           <a href="/obl/">OBL</a>
-          <a href="/hmt/">Treasury</a>
-          <a href="/lab/">Test kits</a>
-          <a href="/diffs/">Versions</a>
+          <a href="/hmt/">HMT</a>
+          <a href="/lab/">Lab</a>
+          <a href="/diffs/">Diffs</a>
         </nav>
       </div>
     </header>
@@ -42,7 +44,7 @@ const pageTitle = title === 'Implementors' ? title : `${title} · Implementors`;
       <slot />
     </main>
     <footer class="site-footer wrap">
-      <p>A notebook. Not a product. Not a shop.</p>
+      <p>Public notes: <code>cards</code>, <code>diffs</code>, <code>lab</code>.</p>
     </footer>
   </body>
 </html>
@@ -226,23 +228,6 @@ const pageTitle = title === 'Implementors' ? title : `${title} · Implementors`;
     font-size: 0.92rem;
   }
 
-  .entry-list li.stub a {
-    border-style: dashed;
-    background: transparent;
-    opacity: 0.72;
-  }
-
-  .entry-list li.stub .title {
-    font-weight: 500;
-    color: var(--muted);
-  }
-
-  .entry-list li.stub .sub {
-    font-family: var(--mono);
-    font-size: 0.78rem;
-    color: var(--warn);
-  }
-
   .prose {
     max-width: var(--max);
   }
@@ -269,23 +254,6 @@ const pageTitle = title === 'Implementors' ? title : `${title} · Implementors`;
 
   .sources ul {
     padding-left: 1.1rem;
-  }
-
-  .fcs-line {
-    margin: 1rem 0 1.5rem;
-    padding: 0.75rem 1rem;
-    border-left: 3px solid var(--accent);
-    background: var(--accent-soft);
-    max-width: var(--max);
-  }
-
-  .fcs-line strong {
-    font-family: var(--mono);
-    font-size: 0.8rem;
-    font-weight: 500;
-    display: block;
-    margin-bottom: 0.25rem;
-    color: var(--accent);
   }
 
   .family-grid {
@@ -326,10 +294,4 @@ const pageTitle = title === 'Implementors' ? title : `${title} · Implementors`;
     font-size: 0.9rem;
   }
 
-  .stub-note {
-    font-family: var(--mono);
-    font-size: 0.8rem;
-    color: var(--warn);
-    margin: 0 0 1rem;
-  }
 </style>
