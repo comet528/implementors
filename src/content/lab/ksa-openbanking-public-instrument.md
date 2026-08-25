@@ -3,10 +3,11 @@ title: KSA Open Banking — public listings
 family: lab
 sources:
   - https://openbanking.sa/index-en.html
-updated: 2026-08-22
+updated: 2026-08-25
 slug: ksa-openbanking-public-instrument
+order: 8
+section: Lab
 ---
 
-# KSA Open Banking — public listings
 
-Saudi Open Banking Framework / Lab / OIDF listing surfaces that are published. The **KSA FAPI profile is not public** — cite **KSA-OB 2022.11.01-final-errata2** where a version string is required.
+Saudi Open Banking publishes Framework, Lab, and OIDF listing surfaces. The KSA FAPI profile itself is not public; where a version string is required, cite **KSA-OB 2022.11.01-final-errata2** from published materials—not a profile you cannot open.

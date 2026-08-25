@@ -1,69 +1,61 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import EntryList from '../components/EntryList.astro';
-import { byUpdatedDesc } from '../lib/entries';
+import Piece from '../components/Piece.astro';
+import { ISSUE, byOrderAsc } from '../lib/entries';
 
-const cards = (await getCollection('cards')).sort(byUpdatedDesc);
-const diffs = (await getCollection('diffs')).sort(byUpdatedDesc);
-const lab = (await getCollection('lab')).sort(byUpdatedDesc);
+const cards = await getCollection('cards');
+const lab = await getCollection('lab');
 
-const doors = [
-  {
-    href: '/fapi/',
-    label: 'API security',
-    blurb: 'FAPI profiles, OIDF conformance, AuthZEN/CoAZ, and related notes.',
-  },
-  {
-    href: '/obl/',
-    label: 'Open Banking Limited',
-    blurb: 'Notes that cite OBL public materials.',
-  },
-  {
-    href: '/hmt/',
-    label: 'HM Treasury',
-    blurb: 'Consultation questions on agentic payments, consent, and liability.',
-  },
-  {
-    href: '/lab/',
-    label: 'Lab instruments',
-    blurb: 'Published suites, attacker models, and framework listings.',
-  },
-  {
-    href: '/diffs/',
-    label: 'Diffs',
-    blurb: 'Protocol and flow differences implementors need to choose between.',
-  },
-];
+const pieces = [
+  ...cards.map((e) => ({ entry: e, collection: 'cards' as const })),
+  ...lab.map((e) => ({ entry: e, collection: 'lab' as const })),
+].sort((a, b) => byOrderAsc(a.entry, b.entry));
+
+const features = pieces.filter((p) => p.entry.data.section === 'Feature');
+const labs = pieces.filter((p) => p.entry.data.section === 'Lab');
 ---
 
-<BaseLayout
-  title="Implementors"
-  description="Public notes on open-banking and open-finance standards for implementors."
->
-  <h1>Implementors</h1>
-  <p class="lede">
-    Public notes on open-banking and open-finance standards for implementors.
-  </p>
+<BaseLayout title="Implementors" description={ISSUE.lede}>
+  <section class="hero" aria-label="Issue masthead">
+    <figure class="hero-art">
+      <img
+        src="/issue-1/hero.webp"
+        alt=""
+        width="1600"
+        height="1067"
+        fetchpriority="high"
+        decoding="async"
+      />
+    </figure>
+  </section>
 
-  <h2>Start here</h2>
-  <div class="family-grid">
-    {
-      doors.map((d) => (
-        <a href={d.href}>
-          <strong>{d.label}</strong>
-          <span>{d.blurb}</span>
-        </a>
-      ))
-    }
+  <div class="wrap">
+    <header class="issue-head">
+      <p class="issue-kicker">{ISSUE.label} · {ISSUE.dateLabel}</p>
+      <h1>Implementors</h1>
+      <p class="lede">{ISSUE.lede}</p>
+    </header>
+
+    <nav aria-label="In this issue">
+      <ol class="toc">
+        {
+          pieces.map(({ entry }) => (
+            <li>
+              <a href={`#${entry.data.slug}`}>
+                <span class="toc-title">{entry.data.title}</span>
+                <span class="toc-section">{entry.data.section}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </nav>
+
+    <p class="issue-section-label">Features</p>
+    {features.map(({ entry, collection }) => <Piece entry={entry} collection={collection} nested />)}
+
+    <p class="issue-section-label">Lab notes</p>
+    {labs.map(({ entry, collection }) => <Piece entry={entry} collection={collection} nested />)}
   </div>
-
-  <h2>Notes</h2>
-  <EntryList entries={cards} collection="cards" />
-
-  <h2>Lab instruments</h2>
-  <EntryList entries={lab} collection="lab" />
-
-  <h2>Diffs</h2>
-  <EntryList entries={diffs} collection="diffs" />
 </BaseLayout>

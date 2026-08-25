@@ -1,0 +1,63 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { render } from 'astro:content';
+import { entryHref, illustrationSrc } from '../lib/entries';
+
+type AnyEntry =
+  | CollectionEntry<'cards'>
+  | CollectionEntry<'diffs'>
+  | CollectionEntry<'lab'>;
+
+interface Props {
+  entry: AnyEntry;
+  collection: 'cards' | 'diffs' | 'lab';
+  /** When true, omit the duplicate H1 (issue page already shows title). */
+  nested?: boolean;
+}
+
+const { entry, collection, nested = false } = Astro.props;
+const { Content } = await render(entry);
+const href = entryHref(collection, entry.data.slug);
+const art = entry.data.illustration ? illustrationSrc(entry.data.illustration) : null;
+---
+
+<article class="piece" id={entry.data.slug}>
+  {
+    art && (
+      <figure class="piece-art">
+        <img src={art} alt="" width="1200" height="800" loading="lazy" decoding="async" />
+      </figure>
+    )
+  }
+  <header class="piece-header">
+    <p class="piece-kicker">{entry.data.section}</p>
+    {
+      nested ? (
+        <h2 class="piece-title">
+          <a href={href}>{entry.data.title}</a>
+        </h2>
+      ) : (
+        <h1 class="piece-title">{entry.data.title}</h1>
+      )
+    }
+  </header>
+  <div class="piece-body prose">
+    <Content />
+  </div>
+  {
+    entry.data.sources.length > 0 && (
+      <footer class="piece-sources">
+        <h3>Sources</h3>
+        <ul>
+          {entry.data.sources.map((url) => (
+            <li>
+              <a href={url} rel="noopener noreferrer">
+                {url}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </footer>
+    )
+  }
+</article>

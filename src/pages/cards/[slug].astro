@@ -1,7 +1,7 @@
 ---
 import { getCollection, getEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import EntryDetail from '../../components/EntryDetail.astro';
+import Piece from '../../components/Piece.astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection('cards');
@@ -19,5 +19,8 @@ if (!entry) {
 ---
 
 <BaseLayout title={entry.data.title} description={entry.data.title}>
-  <EntryDetail entry={entry} showAbstract={true} />
+  <div class="wrap solo">
+    <a class="back-link" href="/">← Issue 1</a>
+    <Piece entry={entry} collection="cards" />
+  </div>
 </BaseLayout>
