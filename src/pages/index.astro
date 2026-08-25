@@ -8,40 +8,70 @@ const cards = (await getCollection('cards')).sort(byUpdatedDesc);
 const diffs = (await getCollection('diffs')).sort(byUpdatedDesc);
 const lab = (await getCollection('lab')).sort(byUpdatedDesc);
 
-const families = [
-  { href: '/fapi/', label: 'FAPI', blurb: 'Profiles, OIDF conformance, AuthZEN/CoAZ, AIIM.' },
-  { href: '/obl/', label: 'OBL', blurb: 'Open Banking Limited public positioning.' },
-  { href: '/hmt/', label: 'HMT', blurb: 'Treasury consultation and KYA/M2M framing.' },
-  { href: '/lab/', label: 'Lab', blurb: 'Public instruments only — never as-run.' },
-  { href: '/diffs/', label: 'Diffs', blurb: 'Protocol diffs implementors need to choose.' },
+const doors = [
+  {
+    href: '/fapi/',
+    label: 'How API security works',
+    blurb:
+      'UK open banking still reads FAPI 1 Advanced. Do not treat FAPI 2 as the UK rulebook.',
+  },
+  {
+    href: '/obl/',
+    label: 'What Open Banking Limited has said',
+    blurb:
+      'What OBL has published — and has not. There is still no UK standard for AI-driven payments.',
+  },
+  {
+    href: '/hmt/',
+    label: 'Treasury questions',
+    blurb: 'Can software pay? Who consented? Who is liable if it goes wrong?',
+  },
+  {
+    href: '/fapi/',
+    label: 'Threat: the agent is not the customer',
+    blurb:
+      'A piece of software is not the person. Put the mandate on the account first.',
+  },
+  {
+    href: '/lab/',
+    label: 'Public test kits',
+    blurb:
+      'UK FCS, KSA listings, mock banks. The published suite — never a scored lab run.',
+  },
 ];
 ---
 
-<BaseLayout title="Implementors" description="Public open-finance implementor directory.">
+<BaseLayout
+  title="Implementors"
+  description="A notebook for people who implement open-banking and open-finance APIs."
+>
   <h1>Implementors</h1>
   <p class="lede">
-    Public directory of family cards, diffs, and lab instruments for open-finance implementors.
-    Collections: <code>cards</code>, <code>diffs</code>, <code>lab</code> only.
+    This is a notebook for people who implement open-banking and open-finance APIs. It is not a
+    product. It is not a shop.
   </p>
 
-  <h2>Families</h2>
+  <h2>Start here</h2>
   <div class="family-grid">
     {
-      families.map((f) => (
-        <a href={f.href}>
-          <strong>{f.label}</strong>
-          <span>{f.blurb}</span>
+      doors.map((d) => (
+        <a href={d.href}>
+          <strong>{d.label}</strong>
+          <span>{d.blurb}</span>
         </a>
       ))
     }
   </div>
 
-  <h2>All cards</h2>
+  <h2>Notes</h2>
+  <p class="lede">
+    A filled card is a real note. An unfinished one is empty on purpose — heading only, no body yet.
+  </p>
   <EntryList entries={cards} collection="cards" />
 
-  <h2>Lab instruments</h2>
+  <h2>Public test kits</h2>
   <EntryList entries={lab} collection="lab" />
 
-  <h2>Diffs</h2>
+  <h2>What changed between versions</h2>
   <EntryList entries={diffs} collection="diffs" />
 </BaseLayout>

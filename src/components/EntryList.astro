@@ -17,18 +17,16 @@ const { entries, collection } = Astro.props;
 
 <ul class="entry-list">
   {
-    entries.map((entry) => (
-      <li>
-        <a href={entryHref(collection, entry.data.slug)}>
-          <p class="title">{entry.data.title}</p>
-          <p class="sub">
-            {entry.data.status}
-            {entry.data.spine ? ' · spine' : ''}
-            {' · '}
-            {entry.data.family}
-          </p>
-        </a>
-      </li>
-    ))
+    entries.map((entry) => {
+      const unfinished = entry.data.status === 'stub';
+      return (
+        <li class:list={{ stub: unfinished }}>
+          <a href={entryHref(collection, entry.data.slug)}>
+            <p class="title">{entry.data.title}</p>
+            <p class="sub">{unfinished ? 'Unfinished — heading only' : 'Note'}</p>
+          </a>
+        </li>
+      );
+    })
   }
 </ul>

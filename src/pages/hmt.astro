@@ -9,10 +9,11 @@ const entries = (await getCollection('cards', ({ data }) => data.family === 'hmt
 );
 ---
 
-<BaseLayout title="HMT" description="HM Treasury family cards.">
-  <h1>HMT</h1>
-  <p class="lede">
-    HM Treasury modernising payment services / agentic payments public instruments.
-  </p>
+<BaseLayout
+  title="Treasury questions"
+  description="Can software pay? Who consented? Who is liable if it goes wrong?"
+>
+  <h1>Treasury questions</h1>
+  <p class="lede">Can software pay? Who consented? Who is liable if it goes wrong?</p>
   <EntryList entries={entries} collection="cards" />
 </BaseLayout>

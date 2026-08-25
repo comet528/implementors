@@ -9,8 +9,14 @@ const entries = (await getCollection('cards', ({ data }) => data.family === 'obl
 );
 ---
 
-<BaseLayout title="OBL" description="Open Banking Limited family cards.">
-  <h1>OBL</h1>
-  <p class="lede">Open Banking Limited public positioning cards.</p>
+<BaseLayout
+  title="What Open Banking Limited has said"
+  description="What OBL has published — and has not. There is still no UK standard for AI-driven payments."
+>
+  <h1>What Open Banking Limited has said</h1>
+  <p class="lede">
+    What OBL has published, and what it has not. There is still no UK standard for AI-driven
+    payments.
+  </p>
   <EntryList entries={entries} collection="cards" />
 </BaseLayout>

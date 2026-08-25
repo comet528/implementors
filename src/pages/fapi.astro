@@ -4,16 +4,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import EntryList from '../components/EntryList.astro';
 import { byUpdatedDesc } from '../lib/entries';
 
-const entries = (await getCollection('cards', ({ data }) => data.family === 'fapi')).sort(
+const entries = (await getCollection('cards', ({ data }) => data.family === 'fapi' || data.family === 'threat')).sort(
   byUpdatedDesc,
 );
 ---
 
-<BaseLayout title="FAPI" description="FAPI family cards.">
-  <h1>FAPI</h1>
+<BaseLayout
+  title="How API security works"
+  description="UK open banking still reads FAPI 1 Advanced. Do not treat FAPI 2 as the UK rulebook."
+>
+  <h1>How API security works</h1>
   <p class="lede">
-    Family cards for FAPI profiles, OIDF conformance, AIIM, and AuthZEN/CoAZ. UK v4 = FAPI 1
-    Advanced; do not treat FAPI 2 Baseline as the UK read.
+    UK open banking still reads FAPI 1 Advanced. Do not treat FAPI 2 as the UK rulebook. A piece of
+    software that pays is not the customer — that threat sits here too.
   </p>
   <EntryList entries={entries} collection="cards" />
 </BaseLayout>
