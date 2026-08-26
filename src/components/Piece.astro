@@ -19,13 +19,16 @@ const { entry, collection, nested = false } = Astro.props;
 const { Content } = await render(entry);
 const href = entryHref(collection, entry.data.slug);
 const art = entry.data.illustration ? illustrationSrc(entry.data.illustration) : null;
+const caption = entry.data.caption ?? '';
+const imgAlt = caption;
 ---
 
 <article class="piece" id={entry.data.slug}>
   {
     art && (
       <figure class="piece-art">
-        <img src={art} alt="" width="1200" height="800" loading="lazy" decoding="async" />
+        <img src={art} alt={imgAlt} width="1200" height="800" loading="lazy" decoding="async" />
+        {caption && <figcaption>{caption}</figcaption>}
       </figure>
     )
   }
@@ -40,7 +43,15 @@ const art = entry.data.illustration ? illustrationSrc(entry.data.illustration) :
         <h1 class="piece-title">{entry.data.title}</h1>
       )
     }
+    {entry.data.dek && <p class="piece-dek">{entry.data.dek}</p>}
   </header>
+  {
+    entry.data.pullQuote && (
+      <blockquote class="piece-pull">
+        <p>{entry.data.pullQuote}</p>
+      </blockquote>
+    )
+  }
   <div class="piece-body prose">
     <Content />
   </div>

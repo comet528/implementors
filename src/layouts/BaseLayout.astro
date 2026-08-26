@@ -31,12 +31,11 @@ const pageTitle = title === 'Implementors' ? `${title} · ${ISSUE.label}` : `${t
     <a class="skip" href="#main">Skip to content</a>
     <header class="masthead">
       <div class="wrap masthead-inner">
-        <a class="brand" href="/">Implementors</a>
-        <p class="masthead-meta">
-          <span>{ISSUE.label}</span>
-          <span aria-hidden="true">·</span>
-          <span>{ISSUE.dateLabel}</span>
-        </p>
+        <div class="masthead-brand">
+          <a class="brand" href="/">Implementors</a>
+          <p class="brand-line">{ISSUE.brandLine}</p>
+        </div>
+        <p class="masthead-meta">{ISSUE.volLabel}</p>
       </div>
     </header>
     <main id="main">
@@ -47,10 +46,9 @@ const pageTitle = title === 'Implementors' ? `${title} · ${ISSUE.label}` : `${t
         <p>
           <strong>Implementors</strong>
           <span aria-hidden="true"> · </span>
-          {ISSUE.label}
-          <span aria-hidden="true"> · </span>
-          {ISSUE.dateLabel}
+          {ISSUE.volLabel}
         </p>
+        <p class="brand-line">{ISSUE.brandLine}</p>
       </div>
     </footer>
   </body>
@@ -115,8 +113,11 @@ const pageTitle = title === 'Implementors' ? `${title} · ${ISSUE.label}` : `${t
   }
 
   .masthead {
-    border-bottom: 1px solid var(--line);
-    background: color-mix(in srgb, var(--panel) 88%, transparent);
+    border: 0;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    box-shadow: 0 3px 0 -1px var(--paper), 0 4px 0 -1px var(--ink);
+    background: color-mix(in srgb, var(--panel) 92%, transparent);
     backdrop-filter: blur(6px);
     position: sticky;
     top: 0;
@@ -132,6 +133,12 @@ const pageTitle = title === 'Implementors' ? `${title} · ${ISSUE.label}` : `${t
     padding: 1rem 0;
   }
 
+  .masthead-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
   .brand {
     font-family: var(--serif);
     font-weight: 700;
@@ -141,14 +148,21 @@ const pageTitle = title === 'Implementors' ? `${title} · ${ISSUE.label}` : `${t
     text-decoration: none;
   }
 
+  .brand-line {
+    margin: 0;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
   .masthead-meta {
     margin: 0;
     font-size: 0.85rem;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--muted);
-    display: flex;
-    gap: 0.5rem;
   }
 
   main {
@@ -212,7 +226,17 @@ const pageTitle = title === 'Implementors' ? `${title} · ${ISSUE.label}` : `${t
   }
 
   .issue-head {
-    padding: 2.25rem 0 0.5rem;
+    padding: 2.25rem 0 1.25rem;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    box-shadow: 0 3px 0 -1px var(--paper), 0 4px 0 -1px var(--ink);
+    margin-bottom: 1.75rem;
+  }
+
+  .issue-head .brand-line {
+    margin: 0 0 1rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
   }
 
   .issue-kicker {
@@ -304,6 +328,15 @@ const pageTitle = title === 'Implementors' ? `${title} · ${ISSUE.label}` : `${t
     background: var(--panel);
   }
 
+  .piece-art figcaption {
+    margin: 0.55rem 0 0;
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    font-style: italic;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
   .piece-kicker {
     margin: 0 0 0.4rem;
     font-size: 0.72rem;
@@ -314,7 +347,7 @@ const pageTitle = title === 'Implementors' ? `${title} · ${ISSUE.label}` : `${t
   }
 
   .piece-title {
-    margin: 0 0 1rem;
+    margin: 0 0 0.65rem;
     font-size: clamp(1.55rem, 2.5vw, 1.95rem);
   }
 
@@ -326,6 +359,33 @@ const pageTitle = title === 'Implementors' ? `${title} · ${ISSUE.label}` : `${t
   .piece-title a:hover,
   .piece-title a:focus-visible {
     color: var(--accent);
+  }
+
+  .piece-dek {
+    margin: 0 0 1rem;
+    font-family: var(--serif);
+    font-size: 1.12rem;
+    line-height: 1.45;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .piece-pull {
+    margin: 0 0 1.35rem;
+    padding: 0.85rem 0 0.85rem 1rem;
+    border-left: 3px double var(--ink);
+    border-top: none;
+    border-bottom: none;
+    border-right: none;
+  }
+
+  .piece-pull p {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    line-height: 1.35;
+    font-weight: 600;
+    color: var(--ink);
   }
 
   .prose {

@@ -15,6 +15,12 @@ const pieceSchema = z.object({
   illustration: z.string().optional(),
   /** Short section label on the issue page. */
   section: z.enum(['Feature', 'Lab']).default('Feature'),
+  /** Standfirst under the title. */
+  dek: z.string().optional(),
+  /** Print pull quote between dek and body. */
+  pullQuote: z.string().optional(),
+  /** Figure caption under art; also used as img alt when present. */
+  caption: z.string().optional(),
 });
 
 const cards = defineCollection({

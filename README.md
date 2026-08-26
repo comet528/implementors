@@ -2,7 +2,7 @@
 
 Public open-finance **newsletter** for implementors. Deployable Astro site.
 
-Issue 1 (August 2026) is the homepage: short, sourced pieces—not a filing cabinet.
+Issue 1 (August 2026) is a full illustrated newsletter on the homepage: masthead, lede, contents, pull quotes, captions, and several paragraphs per piece—not a product landing page and not a filing cabinet.
 
 Collections (content store only): `cards`, `diffs`, `lab`.
 
@@ -36,7 +36,7 @@ Markdown pieces live in:
 - `src/content/lab/` — lab notes
 - `src/content/diffs/` — reserved (empty in Issue 1)
 
-Shared frontmatter: `title`, `family`, `sources` (url[]), `updated`, `slug`, `order`, optional `illustration` (filename under `public/issue-1/`), `section` (`Feature`|`Lab`).
+Shared frontmatter: `title`, `family`, `sources` (url[]), `updated`, `slug`, `order`, optional `illustration` (filename under `public/issue-1/`), `section` (`Feature`|`Lab`), optional `dek`, `pullQuote`, and `caption`.
 
 Art for Issue 1 lives in `public/issue-1/`.
 
