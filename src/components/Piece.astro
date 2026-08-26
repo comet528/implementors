@@ -24,14 +24,6 @@ const imgAlt = caption;
 ---
 
 <article class="piece" id={entry.data.slug}>
-  {
-    art && (
-      <figure class="piece-art">
-        <img src={art} alt={imgAlt} width="1200" height="800" loading="lazy" decoding="async" />
-        {caption && <figcaption>{caption}</figcaption>}
-      </figure>
-    )
-  }
   <header class="piece-header">
     <p class="piece-kicker">{entry.data.section}</p>
     {
@@ -45,6 +37,14 @@ const imgAlt = caption;
     }
     {entry.data.dek && <p class="piece-dek">{entry.data.dek}</p>}
   </header>
+  {
+    art && (
+      <figure class="piece-art">
+        <img src={art} alt={imgAlt} width="1200" height="800" loading="lazy" decoding="async" />
+        {caption && <figcaption>{caption}</figcaption>}
+      </figure>
+    )
+  }
   {
     entry.data.pullQuote && (
       <blockquote class="piece-pull">

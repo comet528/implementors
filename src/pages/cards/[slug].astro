@@ -2,6 +2,8 @@
 import { getCollection, getEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Piece from '../../components/Piece.astro';
+import TocRail from '../../components/TocRail.astro';
+import { loadIssuePieces } from '../../lib/issue';
 
 export async function getStaticPaths() {
   const entries = await getCollection('cards');
@@ -16,11 +18,17 @@ const entry = await getEntry('cards', id);
 if (!entry) {
   throw new Error(`Missing cards entry: ${id}`);
 }
+
+const { pieces } = await loadIssuePieces();
+const description = entry.data.dek ?? entry.data.title;
 ---
 
-<BaseLayout title={entry.data.title} description={entry.data.title}>
-  <div class="wrap solo">
-    <a class="back-link" href="/">← Issue 1</a>
-    <Piece entry={entry} collection="cards" />
+<BaseLayout title={entry.data.title} description={description}>
+  <div class="wrap-wide issue-shell">
+    <TocRail pieces={pieces} currentSlug={entry.data.slug} />
+    <div class="issue-main solo">
+      <a class="back-link" href="/">← Issue 1</a>
+      <Piece entry={entry} collection="cards" />
+    </div>
   </div>
 </BaseLayout>
