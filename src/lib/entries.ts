@@ -19,5 +19,7 @@ export const ISSUE = {
   number: 1,
   label: 'Issue 1',
   dateLabel: 'August 2026',
-  lede: 'What open-finance implementors need this month: profiles, consultations, and lab instruments—short, sourced, and readable.',
+  volLabel: 'Vol. 1 · Issue 1 · August 2026',
+  brandLine: 'A notebook for open-finance implementors',
+  lede: 'Eight pieces for people who wire open-finance profiles: which FAPI is the UK rulebook, what HMT actually asked in Q15, where mandate belongs, and the lab instruments you can open today.',
 } as const;
