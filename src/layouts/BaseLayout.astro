@@ -113,9 +113,11 @@ const pageTitle = title === 'Implementors' ? `${title} · ${ISSUE.label}` : `${t
   }
 
   .masthead {
+    border: 0;
     border-top: 1px solid var(--ink);
-    border-bottom: 3px double var(--ink);
-    background: color-mix(in srgb, var(--panel) 88%, transparent);
+    border-bottom: 1px solid var(--ink);
+    box-shadow: 0 3px 0 -1px var(--paper), 0 4px 0 -1px var(--ink);
+    background: color-mix(in srgb, var(--panel) 92%, transparent);
     backdrop-filter: blur(6px);
     position: sticky;
     top: 0;
@@ -224,8 +226,10 @@ const pageTitle = title === 'Implementors' ? `${title} · ${ISSUE.label}` : `${t
   }
 
   .issue-head {
-    padding: 2.25rem 0 0.5rem;
-    border-bottom: 3px double var(--ink);
+    padding: 2.25rem 0 1.25rem;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    box-shadow: 0 3px 0 -1px var(--paper), 0 4px 0 -1px var(--ink);
     margin-bottom: 1.75rem;
   }
 
