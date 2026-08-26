@@ -1,0 +1,52 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+export type TocPiece = {
+  entry: CollectionEntry<'cards'> | CollectionEntry<'diffs'> | CollectionEntry<'lab'>;
+  collection: 'cards' | 'diffs' | 'lab';
+};
+
+interface Props {
+  pieces: TocPiece[];
+  /** When set, marks the matching slug as the current page. */
+  currentSlug?: string;
+}
+
+const { pieces, currentSlug } = Astro.props;
+---
+
+<aside class="toc-rail" aria-label="In this issue">
+  <details class="toc-panel" data-toc-panel open>
+    <summary class="toc-summary">In this issue</summary>
+    <ol class="toc">
+      {
+        pieces.map(({ entry }) => {
+          const isCurrent = currentSlug === entry.data.slug;
+          return (
+            <li class:list={[{ current: isCurrent }]}>
+              <a
+                href={`/#${entry.data.slug}`}
+                aria-current={isCurrent ? 'page' : undefined}
+              >
+                <span class="toc-title">{entry.data.title}</span>
+                <span class="toc-section">{entry.data.section}</span>
+              </a>
+            </li>
+          );
+        })
+      }
+    </ol>
+  </details>
+</aside>
+
+<script>
+  const panel = document.querySelector<HTMLDetailsElement>('[data-toc-panel]');
+  if (panel) {
+    const mq = window.matchMedia('(min-width: 64rem)');
+    const sync = () => {
+      panel.open = mq.matches;
+    };
+    sync();
+    mq.addEventListener('change', sync);
+  }
+</script>

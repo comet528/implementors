@@ -1,62 +1,40 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Piece from '../components/Piece.astro';
-import { ISSUE, byOrderAsc } from '../lib/entries';
+import TocRail from '../components/TocRail.astro';
+import { ISSUE } from '../lib/entries';
+import { loadIssuePieces } from '../lib/issue';
 
-const cards = await getCollection('cards');
-const lab = await getCollection('lab');
-
-const pieces = [
-  ...cards.map((e) => ({ entry: e, collection: 'cards' as const })),
-  ...lab.map((e) => ({ entry: e, collection: 'lab' as const })),
-].sort((a, b) => byOrderAsc(a.entry, b.entry));
-
-const features = pieces.filter((p) => p.entry.data.section === 'Feature');
-const labs = pieces.filter((p) => p.entry.data.section === 'Lab');
+const { pieces, features, labs } = await loadIssuePieces();
 ---
 
 <BaseLayout title="Implementors" description={ISSUE.lede}>
-  <section class="hero" aria-label="Issue masthead">
-    <figure class="hero-art">
-      <img
-        src="/issue-1/hero.webp"
-        alt=""
-        width="1600"
-        height="1067"
-        fetchpriority="high"
-        decoding="async"
-      />
-    </figure>
-  </section>
+  <div class="wrap-wide issue-shell">
+    <TocRail pieces={pieces} />
 
-  <div class="wrap">
-    <header class="issue-head">
-      <p class="issue-kicker">{ISSUE.volLabel}</p>
-      <h1>Implementors</h1>
-      <p class="brand-line">{ISSUE.brandLine}</p>
-      <p class="lede">{ISSUE.lede}</p>
-    </header>
+    <div class="issue-main">
+      <header class="issue-head">
+        <p class="issue-kicker">{ISSUE.volLabel}</p>
+        <h1>Implementors</h1>
+        <p class="brand-line">{ISSUE.brandLine}</p>
+        <p class="lede">{ISSUE.lede}</p>
+        <figure class="issue-plate">
+          <img
+            src="/issue-1/hero.webp"
+            alt=""
+            width="1600"
+            height="1067"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </figure>
+      </header>
 
-    <nav aria-label="In this issue">
-      <ol class="toc">
-        {
-          pieces.map(({ entry }) => (
-            <li>
-              <a href={`#${entry.data.slug}`}>
-                <span class="toc-title">{entry.data.title}</span>
-                <span class="toc-section">{entry.data.section}</span>
-              </a>
-            </li>
-          ))
-        }
-      </ol>
-    </nav>
+      <p class="issue-section-label">Features</p>
+      {features.map(({ entry, collection }) => <Piece entry={entry} collection={collection} nested />)}
 
-    <p class="issue-section-label">Features</p>
-    {features.map(({ entry, collection }) => <Piece entry={entry} collection={collection} nested />)}
-
-    <p class="issue-section-label">Lab notes</p>
-    {labs.map(({ entry, collection }) => <Piece entry={entry} collection={collection} nested />)}
+      <p class="issue-section-label">Lab notes</p>
+      {labs.map(({ entry, collection }) => <Piece entry={entry} collection={collection} nested />)}
+    </div>
   </div>
 </BaseLayout>
